@@ -1,63 +1,94 @@
 import React, { useState } from "react";
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { ModalView } from "../../../atoms/authModalAtom";
+//import { ModalView } from "../../../atoms/authModalAtom";
 import { auth } from "../../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
-import InputItem from "../../Layout/InputItem";
+//import InputItem from "../../Layout/InputItem";
+import { authModalState } from "../../../atoms/authModalAtom";
+import { useSetRecoilState } from "recoil";
 
 type LoginProps = {
-  toggleView: (view: ModalView) => void;
+  // toggleView: (view: ModalView) => void;
 };
 
-const Login: React.FC<LoginProps> = ({ toggleView }) => {
-  const [form, setForm] = useState({
+const Login: React.FC<LoginProps> = () => {
+  const setAuthModelState = useSetRecoilState(authModalState);
+  const [Loginform, setLogInForm] = useState({
     email: "",
     password: "",
   });
-  const [formError, setFormError] = useState("");
+  //const [formError, setFormError] = useState("");
 
-  const [signInWithEmailAndPassword, user, loading, userError] =
+  const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (formError) setFormError("");
-    if (!form.email.includes("@")) {
-      return setFormError("Please enter a valid email");
-    }
+    //   if (formError) setFormError("");
+    //   if (!form.email.includes("@")) {
+    //     return setFormError("Please enter a valid email");
+    //   }
 
     // Valid form inputs
-    signInWithEmailAndPassword(form.email, form.password);
+    signInWithEmailAndPassword(Loginform.email, Loginform.password);
   };
 
-  const onChange = ({
-    target: { name, value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLogInForm((prev) => ({
       ...prev,
-      [name]: value,
+      [event.target.name]: event.target.value,
     }));
   };
 
   return (
     <form onSubmit={onSubmit}>
-      <InputItem
+      <Input
+        required
         name="email"
         placeholder="email"
-        type="text"
+        type="email"
         mb={2}
         onChange={onChange}
+        fontSize="10pt"
+        _placeholder={{ colors: "gray.500" }}
+        _hover={{
+          bg: "white",
+          border: "1px solid",
+          borderColor: "blue.500",
+        }}
+        _focus={{
+          outline: "none",
+          bg: "white",
+          border: "1px solid",
+          borderColor: "blue.500",
+        }}
+        bg="gray.50"
       />
-      <InputItem
+      <Input
+        required
         name="password"
         placeholder="password"
         type="password"
         onChange={onChange}
+        mb={2}
+        fontSize="10pt"
+        _placeholder={{ colors: "gray.500" }}
+        _hover={{
+          bg: "white",
+          border: "1px solid",
+          borderColor: "blue.500",
+        }}
+        _focus={{
+          outline: "none",
+          bg: "white",
+          border: "1px solid",
+          borderColor: "blue.500",
+        }}
+        bg="gray.50"
       />
       <Text textAlign="center" mt={2} fontSize="10pt" color="red">
-        {formError ||
-          FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}
+        {FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
       </Text>
       <Button
         width="100%"
@@ -77,7 +108,7 @@ const Login: React.FC<LoginProps> = ({ toggleView }) => {
           fontSize="9pt"
           color="blue.500"
           cursor="pointer"
-          onClick={() => toggleView("resetPassword")}
+          //onClick={() => toggleView("resetPassword")}
         >
           Reset
         </Text>
@@ -88,7 +119,7 @@ const Login: React.FC<LoginProps> = ({ toggleView }) => {
           color="blue.500"
           fontWeight={700}
           cursor="pointer"
-          onClick={() => toggleView("signup")}
+          //onClick={() => toggleView("signup")}
         >
           SIGN UP
         </Text>
