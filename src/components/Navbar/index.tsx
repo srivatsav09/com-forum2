@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
           height="46px"
           alt="reddit text"
         /> */}
-        <h3>Community Forum</h3>
+        <h3> &nbsp; Community Forum</h3>
       </Flex>
       {user && <Directory />}
       <SearchInput user={user as User} />
