@@ -34,12 +34,14 @@ const Navbar: React.FC = () => {
         cursor="pointer"
         onClick={() => onSelectMenuItem(defaultMenuItem)}
       >
-        <Image src="/images/redditFace.svg" height="30px" />
-        <Image
+        <Image src="/images/redditFace.svg" alt="reddit" height="30px" />
+        {/* <Image
           display={{ base: "none", md: "unset" }}
-          src="/images/redditText.svg"
+          src="/images/Forum2.svg"
           height="46px"
-        />
+          alt="reddit text"
+        /> */}
+        <h3>Community Forum</h3>
       </Flex>
       {user && <Directory />}
       <SearchInput user={user as User} />

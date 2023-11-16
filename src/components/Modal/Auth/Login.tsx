@@ -17,7 +17,7 @@ const Login: React.FC<LoginProps> = ({ toggleView }) => {
   });
   const [formError, setFormError] = useState("");
 
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, user, loading, userError] =
     useSignInWithEmailAndPassword(auth);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -57,7 +57,7 @@ const Login: React.FC<LoginProps> = ({ toggleView }) => {
       />
       <Text textAlign="center" mt={2} fontSize="10pt" color="red">
         {formError ||
-          FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
+          FIREBASE_ERRORS[userError?.message as keyof typeof FIREBASE_ERRORS]}
       </Text>
       <Button
         width="100%"
