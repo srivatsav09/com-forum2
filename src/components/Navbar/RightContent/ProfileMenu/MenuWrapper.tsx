@@ -21,8 +21,11 @@ import UserList from "./UserList";
 import { FaRedditSquare } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { IoSparkles } from "react-icons/io5";
+import { User } from "firebase/auth";
 
-type MenuWrapperProps = {};
+type MenuWrapperProps = {
+  user?: User | null;
+};
 
 const MenuWrapper: React.FC<MenuWrapperProps> = () => {
   const [authModal, setModalState] = useRecoilState(authModalState);

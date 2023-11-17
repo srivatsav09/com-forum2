@@ -7,14 +7,14 @@ import Icons from "./Icons";
 import MenuWrapper from "./ProfileMenu/MenuWrapper";
 
 type RightContentProps = {
-  user: User;
+  user?: User | null;
 };
 
 const RightContent: React.FC<RightContentProps> = ({ user }) => {
   return (
     <>
       <AuthModal />
-      <Flex justifyContent="space-between" alignItems="center">
+      <Flex justify="center" alignItems="center">
         {user ? <Icons /> : <AuthButtons />}
         <MenuWrapper />
       </Flex>
