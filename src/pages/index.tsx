@@ -226,7 +226,7 @@ const Home: NextPage = () => {
       </>
       <Stack spacing={5} position="sticky" top="14px">
         <Recommendations />
-        <Premium />
+        {/* <Premium /> */}
         <PersonalHome />
       </Stack>
     </PageContentLayout>

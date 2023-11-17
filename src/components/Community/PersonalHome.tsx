@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
+import { Button, Flex, Icon, Stack, Text , Image} from "@chakra-ui/react";
 import { FaReddit } from "react-icons/fa";
 
 const PersonalHome: React.FC = () => {
@@ -26,12 +26,13 @@ const PersonalHome: React.FC = () => {
       ></Flex>
       <Flex direction="column" p="12px">
         <Flex align="center" mb={2}>
-          <Icon as={FaReddit} fontSize={50} color="brand.100" mr={2} />
+          <Icon as = {FaReddit} fontSize={50} color="brand.100" mr={2} />
+          {/* <Image src="/images/madrasvaasi.svg" fontSize={5} color="brand.100" mr={2} /> */}
           <Text fontWeight={600}>Home</Text>
         </Flex>
         <Stack spacing={3}>
           <Text fontSize="9pt">
-            Your personal Reddit frontpage, built for you.
+            Your personal Community Forum, built for you.
           </Text>
           <Button height="30px">Create Post</Button>
           <Button variant="outline" height="30px">
