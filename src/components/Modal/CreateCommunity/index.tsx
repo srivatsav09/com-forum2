@@ -14,7 +14,13 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  runTransaction,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
@@ -63,18 +69,16 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       // Create community document and communitySnippet subcollection document on user
       const communityDocRef = doc(firestore, "communities", name);
       await runTransaction(firestore, async (transaction) => {
-        const communityDoc = await transaction.get(communityDocRef);
+        const communityDoc = await getDoc(communityDocRef);
         if (communityDoc.exists()) {
           throw new Error(`Sorry, f/${name} is taken. Try another.`);
         }
-
         transaction.set(communityDocRef, {
           creatorId: userId,
           createdAt: serverTimestamp(),
           numberOfMembers: 1,
-          privacyType: "public",
+          privacyType: communityType,
         });
-
         transaction.set(
           doc(firestore, `users/${userId}/communitySnippets`, name),
           {
@@ -92,7 +96,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       mySnippets: [],
     }));
     handleClose();
-    router.push(`r/${name}`);
+    router.push(`f/${name}`);
     setLoading(false);
   };
 

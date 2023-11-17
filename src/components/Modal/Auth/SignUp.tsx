@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { ModalView } from "../../../atoms/authModalAtom";
-import { auth } from "../../../firebase/clientApp";
+import { auth, firestore } from "../../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../../firebase/errors";
 import InputItem from "../../Layout/InputItem";
+import { async } from "@firebase/util";
+import { User } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 type SignUpProps = {
   toggleView: (view: ModalView) => void;
@@ -43,6 +46,19 @@ const SignUp: React.FC<SignUpProps> = ({ toggleView }) => {
       [name]: value,
     }));
   };
+
+  const createUserDocument = async (user: User) => {
+    await addDoc(
+      collection(firestore, "users"),
+      JSON.parse(JSON.stringify(user))
+    );
+  };
+
+  useEffect(() => {
+    if (user) {
+      createUserDocument(user.user);
+    }
+  }, [user]);
 
   return (
     <form onSubmit={onSubmit}>
