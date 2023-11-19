@@ -174,7 +174,7 @@ const Posts: React.FC<PostsProps> = ({
       ...prev,
       selectedPost: { ...post, postIdx },
     }));
-    router.push(`/r/${communityData?.id!}/comments/${post.id}`);
+    router.push(`/f/${communityData?.id!}/comments/${post.id}`);
   };
 
   useEffect(() => {

@@ -16,7 +16,7 @@ const CreatePostLink: React.FC<CreatePostProps> = () => {
     // Could check for user to open auth modal before redirecting to submit
     const { community } = router.query;
     if (community) {
-      router.push(`/r/${router.query.community}/submit`);
+      router.push(`/f/${router.query.community}/submit`);
       return;
     }
     // Open directory menu to select community to post to

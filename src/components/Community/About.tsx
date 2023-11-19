@@ -164,7 +164,7 @@ const About: React.FC<AboutProps> = ({
                 )}
               </Flex>
               {!onCreatePage && (
-                <Link href={`/r/${router.query.community}/submit`}>
+                <Link href={`/f/${router.query.community}/submit`}>
                   <Button mt={3} height="30px">
                     Create Post
                   </Button>
